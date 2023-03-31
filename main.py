@@ -52,8 +52,8 @@ def read_root():
 
 @app.post("/auth/refresh")
 def post_refresh_token(Authorize: AuthJWT = Depends()):
-    access_token = Authorize.create_access_token(subject=1)
-    refresh_token = Authorize.create_refresh_token(subject=2)
+    access_token = Authorize.create_access_token(subject=1111)
+    refresh_token = Authorize.create_refresh_token(subject=1111)
     return {
         "accessToken": access_token,
         "refreshToken": refresh_token,
@@ -76,7 +76,7 @@ def post_access_token(Authorize: AuthJWT = Depends()):
 @app.get("/user")
 def get_user(Authorize: AuthJWT = Depends()):
     Authorize.jwt_required()
-    return {"id": 1, "name": "bluejoy"}
+    return {"id": 1111, "name": "bluejoy"}
 
 
 @app.get("/ground")
@@ -90,7 +90,7 @@ def get_ground(Authorize: AuthJWT = Depends()):
                 "title": "카톡!",
                 "expiresIn": "2023-03-29 17:22:21",
                 "maker": {
-                    "id": 1212312,
+                    "id": 1111,
                     "name": "dd"
                 }
             },
@@ -100,7 +100,7 @@ def get_ground(Authorize: AuthJWT = Depends()):
                 "title": "카톡!",
                 "expiresIn": "2023-03-29 17:22:21",
                 "maker": {
-                    "id": 1212312,
+                    "id": 1111,
                     "name": "dd"
                 }
             },
@@ -110,9 +110,27 @@ def get_ground(Authorize: AuthJWT = Depends()):
                 "title": "카톡!",
                 "expiresIn": "2023-03-29 17:22:21",
                 "maker": {
-                    "id": 1212312,
+                    "id": 1111,
                     "name": "dd"
                 }
             }
         ]
     }
+
+
+class PostGroundDto(BaseModel):
+    title: str
+    expiresIn: str
+    id: int | None = None
+    coordinate: str | None = None
+    maker: User | None = None
+
+
+@app.post("/ground")
+def get_ground(ground: PostGroundDto, Authorize: AuthJWT = Depends()):
+    Authorize.jwt_required()
+    current_user_id = Authorize.get_jwt_subject()
+    ground.maker = User(id=current_user_id, name='bluejoy')
+    ground.coordinate = '111000'
+    ground.id = 11
+    return ground
