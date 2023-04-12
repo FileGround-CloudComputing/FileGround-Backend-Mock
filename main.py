@@ -50,6 +50,12 @@ def read_root():
     return {"Hello": "World"}
 
 
+@app.delete("/auth")
+def signout(Authorize: AuthJWT = Depends()):
+    Authorize.jwt_required()
+    return True
+
+
 @app.post("/auth/refresh")
 def post_refresh_token(Authorize: AuthJWT = Depends()):
     access_token = Authorize.create_access_token(subject=1111)
@@ -85,30 +91,45 @@ def get_ground(Authorize: AuthJWT = Depends()):
     return {
         "data": [
             {
-                "id": 1212312,
-                "coordinate": "001234",
-                "title": "카톡!",
-                "expiresIn": "2023-03-29 17:22:21",
+                "id": "121212",
+                "title": "카톡123!",
+                "expiresIn": "2023-04-29 17:22:21",
                 "maker": {
                     "id": 1111,
                     "name": "dd"
                 }
             },
             {
-                "id": 1212312,
-                "coordinate": "001234",
-                "title": "카톡!",
-                "expiresIn": "2023-03-29 17:22:21",
+                "id": "121112",
+                "title": "테스트",
+                "expiresIn": "2023-04-29 17:22:21",
                 "maker": {
                     "id": 1111,
                     "name": "dd"
                 }
             },
             {
-                "id": 1212312,
-                "coordinate": "001234",
+                "id": "122312",
                 "title": "카톡!",
-                "expiresIn": "2023-03-29 17:22:21",
+                "expiresIn": "2023-04-29 17:22:21",
+                "maker": {
+                    "id": 1111,
+                    "name": "dd"
+                }
+            },
+            {
+                "id": "122312",
+                "title": "2323!",
+                "expiresIn": "2023-04-29 17:22:21",
+                "maker": {
+                    "id": 1111,
+                    "name": "dd"
+                }
+            },
+            {
+                "id": "121212",
+                "title": "카1톡!",
+                "expiresIn": "2023-04-29 17:22:21",
                 "maker": {
                     "id": 1111,
                     "name": "dd"
@@ -121,8 +142,7 @@ def get_ground(Authorize: AuthJWT = Depends()):
 class PostGroundDto(BaseModel):
     title: str
     expiresIn: str
-    id: int | None = None
-    coordinate: str | None = None
+    id: str | None = None
     maker: User | None = None
 
 
@@ -131,6 +151,45 @@ def get_ground(ground: PostGroundDto, Authorize: AuthJWT = Depends()):
     Authorize.jwt_required()
     current_user_id = Authorize.get_jwt_subject()
     ground.maker = User(id=current_user_id, name='bluejoy')
-    ground.coordinate = '111000'
-    ground.id = 11
+    ground.id = "123123"
     return ground
+
+
+@app.get("/ground/{groundId}")
+def get_ground(groundId: str):
+    if(groundId == "111111"):
+        return {
+            "id": "111111",
+            "title": "경주 여행 사진 모음",
+            "expiresIn": "2023-03-29 17:22:21",
+            "maker": {
+                "id": 1111,
+                "name": "dd"
+            },
+            "photos": [
+                {"id": "iguana-7833655_1280.jpg",
+                 "src": "https://cdn.pixabay.com/photo/2023/03/06/14/58/iguana-7833655_1280.jpg",
+                 "thumbnail": "https://cdn.pixabay.com/photo/2023/03/06/14/58/iguana-7833655_1280.jpg",
+                 "uploadedAt": "1", "uploaderId": "12", "uploaderName": "122", },
+                {"id": "soldering-7897827_1280.jpg",
+                 "src": "https://cdn.pixabay.com/photo/2023/04/03/19/37/soldering-7897827_1280.jpg",
+                 "thumbnail": "https://cdn.pixabay.com/photo/2023/04/03/19/37/soldering-7897827_1280.jpg",
+                 "uploadedAt": "1", "uploaderId": "12", "uploaderName": "122", },
+                {"id": "250.jpg",
+                 "src": "https://fastly.picsum.photos/id/291/250/250.jpg?hmac=lNSl8XhRAzvig4-fdx6oAIZuSjINr1DewDRVpoFug6s",
+                 "thumbnail": "https://fastly.picsum.photos/id/291/250/250.jpg?hmac=lNSl8XhRAzvig4-fdx6oAIZuSjINr1DewDRVpoFug6s",
+                 "uploadedAt": "1", "uploaderId": "12", "uploaderName": "122",
+                 },
+                {"id": "road-7859036_1280.jpg",
+                 "src": "https://cdn.pixabay.com/photo/2023/03/17/16/41/road-7859036_1280.jpg",
+                 "thumbnail": "https://cdn.pixabay.com/photo/2023/03/17/16/41/road-7859036_1280.jpg",
+                 "uploadedAt": "1", "uploaderId": "12", "uploaderName": "122",
+                 },
+                {"id": "purple-crocuses-7856702_1280.jpg",
+                 "src": "https://cdn.pixabay.com/photo/2023/03/16/13/29/purple-crocuses-7856702_1280.jpg",
+                 "thumbnail": "https://cdn.pixabay.com/photo/2023/03/16/13/29/purple-crocuses-7856702_1280.jpg",
+                 "uploadedAt": "1", "uploaderId": "12", "uploaderName": "122",
+                 }
+            ]
+        }
+    return AuthJWTException()
