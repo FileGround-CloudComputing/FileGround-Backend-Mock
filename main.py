@@ -158,38 +158,37 @@ def get_ground(ground: PostGroundDto, Authorize: AuthJWT = Depends()):
 
 @app.get("/ground/{groundId}")
 def get_ground(groundId: str):
-        return {
-            "id": groundId,
-            "title": random.choice(["경주 여행 사진 모음", "0413생일파티", "어쩌구저쩌그"]),
-            "expiresIn": "2023-03-29 17:22:21",
-            "maker": {
-                "id": 1111,
-                "name": "dd"
-            },
-            "photos": [
-                {"id": "iguana-7833655_1280.jpg",
-                 "src": "https://cdn.pixabay.com/photo/2023/03/06/14/58/iguana-7833655_1280.jpg",
-                 "thumbnail": "https://cdn.pixabay.com/photo/2023/03/06/14/58/iguana-7833655_1280.jpg",
-                 "uploadedAt": "1", "uploaderId": "12", "uploaderName": "122", },
-                {"id": "soldering-7897827_1280.jpg",
-                 "src": "https://cdn.pixabay.com/photo/2023/04/03/19/37/soldering-7897827_1280.jpg",
-                 "thumbnail": "https://cdn.pixabay.com/photo/2023/04/03/19/37/soldering-7897827_1280.jpg",
-                 "uploadedAt": "1", "uploaderId": "12", "uploaderName": "122", },
-                {"id": "250.jpg",
-                 "src": "https://fastly.picsum.photos/id/291/250/250.jpg?hmac=lNSl8XhRAzvig4-fdx6oAIZuSjINr1DewDRVpoFug6s",
-                 "thumbnail": "https://fastly.picsum.photos/id/291/250/250.jpg?hmac=lNSl8XhRAzvig4-fdx6oAIZuSjINr1DewDRVpoFug6s",
-                 "uploadedAt": "1", "uploaderId": "12", "uploaderName": "122",
-                 },
-                {"id": "road-7859036_1280.jpg",
-                 "src": "https://cdn.pixabay.com/photo/2023/03/17/16/41/road-7859036_1280.jpg",
-                 "thumbnail": "https://cdn.pixabay.com/photo/2023/03/17/16/41/road-7859036_1280.jpg",
-                 "uploadedAt": "1", "uploaderId": "12", "uploaderName": "122",
-                 },
-                {"id": "purple-crocuses-7856702_1280.jpg",
-                 "src": "https://cdn.pixabay.com/photo/2023/03/16/13/29/purple-crocuses-7856702_1280.jpg",
-                 "thumbnail": "https://cdn.pixabay.com/photo/2023/03/16/13/29/purple-crocuses-7856702_1280.jpg",
-                 "uploadedAt": "1", "uploaderId": "12", "uploaderName": "122",
-                 }
-            ]
-        }
-    return AuthJWTException()
+    return {
+        "id": groundId,
+        "title": random.choice(["경주 여행 사진 모음", "0413생일파티", "어쩌구저쩌그"]),
+        "expiresIn": "2023-03-29 17:22:21",
+        "maker": {
+            "id": 1111,
+            "name": "dd"
+        },
+        "photos": [
+            {"id": "iguana-7833655_1280.jpg",
+             "src": "https://cdn.pixabay.com/photo/2023/03/06/14/58/iguana-7833655_1280.jpg",
+             "thumbnail": "https://cdn.pixabay.com/photo/2023/03/06/14/58/iguana-7833655_1280.jpg",
+             "uploadedAt": "1", "uploaderId": "12", "uploaderName": "122", },
+            {"id": "soldering-7897827_1280.jpg",
+             "src": "https://cdn.pixabay.com/photo/2023/04/03/19/37/soldering-7897827_1280.jpg",
+             "thumbnail": "https://cdn.pixabay.com/photo/2023/04/03/19/37/soldering-7897827_1280.jpg",
+             "uploadedAt": "1", "uploaderId": "12", "uploaderName": "122", },
+            {"id": "250.jpg",
+             "src": "https://fastly.picsum.photos/id/291/250/250.jpg?hmac=lNSl8XhRAzvig4-fdx6oAIZuSjINr1DewDRVpoFug6s",
+             "thumbnail": "https://fastly.picsum.photos/id/291/250/250.jpg?hmac=lNSl8XhRAzvig4-fdx6oAIZuSjINr1DewDRVpoFug6s",
+             "uploadedAt": "1", "uploaderId": "12", "uploaderName": "122",
+             },
+            {"id": "road-7859036_1280.jpg",
+             "src": "https://cdn.pixabay.com/photo/2023/03/17/16/41/road-7859036_1280.jpg",
+             "thumbnail": "https://cdn.pixabay.com/photo/2023/03/17/16/41/road-7859036_1280.jpg",
+             "uploadedAt": "1", "uploaderId": "12", "uploaderName": "122",
+             },
+            {"id": "purple-crocuses-7856702_1280.jpg",
+             "src": "https://cdn.pixabay.com/photo/2023/03/16/13/29/purple-crocuses-7856702_1280.jpg",
+             "thumbnail": "https://cdn.pixabay.com/photo/2023/03/16/13/29/purple-crocuses-7856702_1280.jpg",
+             "uploadedAt": "1", "uploaderId": "12", "uploaderName": "122",
+             }
+        ]
+    }
