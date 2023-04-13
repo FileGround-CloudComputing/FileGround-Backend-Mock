@@ -7,6 +7,7 @@ from fastapi_jwt_auth.exceptions import AuthJWTException
 from datetime import datetime
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
+import random
 app = FastAPI()
 
 origins = [
@@ -157,10 +158,9 @@ def get_ground(ground: PostGroundDto, Authorize: AuthJWT = Depends()):
 
 @app.get("/ground/{groundId}")
 def get_ground(groundId: str):
-    if(groundId == "111111"):
         return {
-            "id": "111111",
-            "title": "경주 여행 사진 모음",
+            "id": groundId,
+            "title": random.choice(["경주 여행 사진 모음", "0413생일파티", "어쩌구저쩌그"]),
             "expiresIn": "2023-03-29 17:22:21",
             "maker": {
                 "id": 1111,
